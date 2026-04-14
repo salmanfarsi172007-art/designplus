@@ -1,54 +1,1144 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Design Plus</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Design Plus portfolio website showcasing creative design work." />
+  <title>Design Plus</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: white;
-    color: black;
-    text-align: center;
-}
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --surface-2: #efefef;
+      --text: #111111;
+      --muted: #666666;
+      --border: #d9d9d9;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 22px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
 
-.container {
-    padding: 50px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-h1 {
-    font-size: 40px;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-img {
-    width: 200px;
-    margin: 10px;
-}
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Hind Siliguri", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
 
-.card {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-}
-</style>
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+    }
+
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+      z-index: 1000;
+      background: #000;
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+    }
+
+    .wrap {
+      width: min(100% - 24px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--text);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      flex: 0 0 auto;
+      background: #fff;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      font-size: 1.05rem;
+      line-height: 1.1;
+    }
+
+    .brand-text span {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      transition: 180ms ease;
+      white-space: nowrap;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      border-color: var(--border);
+      color: var(--text);
+      background: var(--surface);
+      outline: none;
+    }
+
+    .hero {
+      padding: 46px 0 18px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .info-card,
+    .panel,
+    .section-card,
+    .contact-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #111;
+      flex: 0 0 auto;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 4.3rem);
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 16px 0 0;
+      color: var(--muted);
+      max-width: 60ch;
+      font-size: 1.02rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: #fff;
+      transition: 180ms ease;
+      min-height: 46px;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .btn.secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .side-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .info-card {
+      padding: 22px;
+    }
+
+    .info-card h2,
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .info-card p,
+    .section-head p,
+    .contact-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .mini-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .mini-bullet {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #111;
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    .section {
+      padding: 24px 0 18px;
+    }
+
+    .section-card {
+      padding: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .searchbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .searchbar input {
+      width: min(100%, 340px);
+      min-height: 46px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 0 14px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+    }
+
+    .searchbar input:focus {
+      border-color: #000;
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      transition: 180ms ease;
+    }
+
+    .chip.active,
+    .chip:hover,
+    .chip:focus-visible {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+      outline: none;
+    }
+
+    .gallery-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      grid-column: span 4;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .card-media {
+      aspect-ratio: 4 / 3;
+      background: var(--surface-2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 240ms ease;
+    }
+
+    .card:hover .card-media img {
+      transform: scale(1.03);
+    }
+
+    .card-body {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.08rem;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      min-height: 3.2em;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .btn.small {
+      min-height: 40px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+
+    .btn.ghost {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .contact-card {
+      padding: 22px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      transition: 180ms ease;
+    }
+
+    .contact-links a:hover,
+    .contact-links a:focus-visible {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+      outline: none;
+    }
+
+    .footer {
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 0.94rem;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: 999;
+      padding: 18px;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-panel {
+      width: min(100%, 980px);
+      max-height: min(90vh, 900px);
+      background: #fff;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+
+    .modal-media {
+      background: #111;
+      min-height: 320px;
+    }
+
+    .modal-media img {
+      width: 100%;
+      height: 100%;
+      max-height: 90vh;
+      object-fit: cover;
+    }
+
+    .modal-body {
+      padding: 22px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .close-btn {
+      min-width: 42px;
+      min-height: 42px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .modal-body h3 {
+      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .modal-body p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .code-note {
+      font-size: 0.9rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .contact-grid,
+      .modal-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        grid-column: span 6;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        padding-top: 22px;
+      }
+
+      .hero-card,
+      .info-card,
+      .section-card,
+      .contact-card,
+      .modal-body {
+        padding: 18px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        grid-column: 1 / -1;
+      }
+
+      .section-head {
+        align-items: flex-start;
+      }
+
+      .searchbar input {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<div class="container">
-    <h1>Design Plus</h1>
-    <p>Welcome to my portfolio</p>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">DP</div>
+        <div class="brand-text">
+          <strong>Design Plus</strong>
+          <span>Premium portfolio showcase</span>
+        </div>
+      </div>
 
-    <div class="card">
-        <img src="https://via.placeholder.com/200">
-        <h3>Sample Design</h3>
-        <p>This is my design work</p>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <a href="tel:+880123456789">Call Me</a>
-</div>
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <article class="hero-card">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Open portfolio, clean presentation, fast loading</div>
+          <h1>Design Plus</h1>
+          <p>
+            A premium portfolio website for showing your work with clean titles, short descriptions, and many image slots.
+            Built to look sharp on desktop and mobile, with full control through code only.
+          </p>
 
+          <div class="hero-actions">
+            <a class="btn" href="#portfolio">View Portfolio</a>
+            <a class="btn secondary" href="#contact">Contact Me</a>
+          </div>
+
+          <div class="stats" aria-label="Portfolio highlights">
+            <div class="stat">
+              <strong>12+</strong>
+              <span>image slots ready</span>
+            </div>
+            <div class="stat">
+              <strong>100%</strong>
+              <span>responsive layout</span>
+            </div>
+            <div class="stat">
+              <strong>1 file</strong>
+              <span>easy GitHub Pages deploy</span>
+            </div>
+            <div class="stat">
+              <strong>Only code</strong>
+              <span>no default clutter</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="side-stack" id="about">
+          <div class="info-card">
+            <h2>About this site</h2>
+            <p>
+              This layout is made to show your identity, writing, and portfolio in a neat gallery.
+              Every item can have its own image, title, and description.
+            </p>
+
+            <div class="mini-list">
+              <div class="mini-item">
+                <span class="mini-bullet"></span>
+                <div>
+                  <strong>Admin-only editing</strong>
+                  <div style="color: var(--muted);">You control the code, visitors only view the site.</div>
+                </div>
+              </div>
+
+              <div class="mini-item">
+                <span class="mini-bullet"></span>
+                <div>
+                  <strong>Mobile friendly</strong>
+                  <div style="color: var(--muted);">Cards automatically stack nicely on small screens.</div>
+                </div>
+              </div>
+
+              <div class="mini-item">
+                <span class="mini-bullet"></span>
+                <div>
+                  <strong>Google Drive ready</strong>
+                  <div style="color: var(--muted);">Paste direct image links in the item array below.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <h2>How to edit</h2>
+            <p>
+              Find the JavaScript array named <strong>portfolioItems</strong>. Replace each image link, title, and description there.
+              That single section controls the whole gallery.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="portfolio">
+      <div class="wrap section-card">
+        <div class="section-head">
+          <div>
+            <h2>Portfolio Gallery</h2>
+            <p>Use the search box or category chips to quickly browse the work.</p>
+          </div>
+
+          <div class="searchbar">
+            <input id="searchInput" type="search" placeholder="Search by title or description" autocomplete="off" />
+          </div>
+        </div>
+
+        <div class="gallery-meta">
+          <div id="resultCount">Loading items...</div>
+          <div>Click any card to preview it larger</div>
+        </div>
+
+        <div class="chips" id="chips">
+          <button class="chip active" type="button" data-filter="all">All</button>
+          <button class="chip" type="button" data-filter="branding">Branding</button>
+          <button class="chip" type="button" data-filter="poster">Poster</button>
+          <button class="chip" type="button" data-filter="social">Social</button>
+          <button class="chip" type="button" data-filter="logo">Logo</button>
+        </div>
+
+        <div class="gallery" id="gallery" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="wrap contact-grid">
+        <article class="contact-card">
+          <h2>Contact</h2>
+          <p>
+            Put your phone number, email, or WhatsApp here. Visitors can view and contact you,
+            but they cannot change anything on the site.
+          </p>
+
+          <div class="contact-links">
+            <a href="tel:+880123456789">Call</a>
+            <a href="mailto:yourmail@example.com">Email</a>
+            <a href="https://wa.me/880123456789" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </article>
+
+        <article class="contact-card">
+          <h2>Clean upload note</h2>
+          <p>
+            For Google Drive images, use a direct view URL.
+            The code below also tries to convert common Drive share links automatically.
+          </p>
+          <p class="code-note">
+            Best practice: make sure your Drive files are shared as Anyone with the link can view.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      © <span id="year"></span> Design Plus. Built for a clean portfolio experience.
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-panel" role="document">
+      <div class="modal-media">
+        <img id="modalImage" alt="" />
+      </div>
+      <div class="modal-body">
+        <div class="modal-top">
+          <div>
+            <h3 id="modalTitle"></h3>
+            <p id="modalCategory" style="margin-top: 6px;"></p>
+          </div>
+          <button class="close-btn" id="closeModal" type="button" aria-label="Close preview">✕</button>
+        </div>
+        <p id="modalDescription"></p>
+        <div class="card-tags" id="modalTags"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const portfolioItems = [
+      {
+        title: "Elegant Brand Cover",
+        description: "A clean brand presentation for premium identity work.",
+        category: "branding",
+        tags: ["Branding", "Cover", "Premium"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Modern Poster Design",
+        description: "A sharp poster layout with strong visual balance.",
+        category: "poster",
+        tags: ["Poster", "Marketing", "Bold"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Social Media Banner",
+        description: "Perfect for page headers, ads, and campaign visuals.",
+        category: "social",
+        tags: ["Social", "Banner", "Ad"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Minimal Logo Concept",
+        description: "Simple logo concept for clean and memorable branding.",
+        category: "logo",
+        tags: ["Logo", "Minimal", "Identity"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Corporate Flyer Layout",
+        description: "Professional flyer style for business promotion.",
+        category: "branding",
+        tags: ["Flyer", "Corporate", "Design"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Creative Event Poster",
+        description: "A loud and attractive layout for event promotion.",
+        category: "poster",
+        tags: ["Event", "Poster", "Promo"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Instagram Post Design",
+        description: "A compact square design for social media feeds.",
+        category: "social",
+        tags: ["Instagram", "Square", "Feed"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Typography Logo Mockup",
+        description: "Wordmark style branding with a clean premium feel.",
+        category: "logo",
+        tags: ["Wordmark", "Logo", "Typography"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Product Promotion Banner",
+        description: "Designed for ads, product highlights, and offers.",
+        category: "branding",
+        tags: ["Product", "Ads", "Promo"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Creative Campaign Poster",
+        description: "A polished composition for social or print promotion.",
+        category: "poster",
+        tags: ["Campaign", "Poster", "Creative"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Facebook Cover Art",
+        description: "A wide cover design for profile branding.",
+        category: "social",
+        tags: ["Facebook", "Cover", "Wide"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      },
+      {
+        title: "Brand Symbol Draft",
+        description: "A compact symbol idea built for brand recognition.",
+        category: "logo",
+        tags: ["Symbol", "Brand", "Draft"],
+        image: "YOUR_IMAGE_LINK_HERE"
+      }
+    ];
+
+    const gallery = document.getElementById("gallery");
+    const resultCount = document.getElementById("resultCount");
+    const searchInput = document.getElementById("searchInput");
+    const chips = document.getElementById("chips");
+
+    const modal = document.getElementById("modal");
+    const modalImage = document.getElementById("modalImage");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalCategory = document.getElementById("modalCategory");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalTags = document.getElementById("modalTags");
+    const closeModal = document.getElementById("closeModal");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    let activeFilter = "all";
+    let searchValue = "";
+
+    function normalizeText(value) {
+      return String(value || "").toLowerCase().trim();
+    }
+
+    function extractDriveId(url) {
+      if (!url || url === "YOUR_IMAGE_LINK_HERE") return "";
+      const patterns = [
+        /\/file\/d\/([^/]+)/,
+        /[?&]id=([^&]+)/,
+        /\/d\/([^/]+)/
+      ];
+
+      for (const pattern of patterns) {
+        const match = String(url).match(pattern);
+        if (match && match[1]) return match[1];
+      }
+
+      return "";
+    }
+
+    function toDirectImageUrl(url) {
+      if (!url || url === "YOUR_IMAGE_LINK_HERE") {
+        return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900">
+            <rect width="1200" height="900" fill="#f2f2f2"/>
+            <rect x="120" y="120" width="960" height="660" rx="34" fill="#ffffff" stroke="#d9d9d9" stroke-width="8"/>
+            <text x="600" y="430" text-anchor="middle" font-size="42" font-family="Arial" fill="#666666">Paste your image link here</text>
+          </svg>
+        `);
+      }
+
+      const directId = extractDriveId(url);
+      if (directId) {
+        return `https://drive.google.com/uc?export=view&id=${directId}`;
+      }
+
+      return url;
+    }
+
+    function getVisibleItems() {
+      return portfolioItems.filter(item => {
+        const matchesFilter = activeFilter === "all" || item.category === activeFilter;
+        const haystack = `${item.title} ${item.description} ${item.category} ${item.tags.join(" ")}`;
+        const matchesSearch = haystack.toLowerCase().includes(searchValue);
+        return matchesFilter && matchesSearch;
+      });
+    }
+
+    function openModal(item) {
+      modalImage.src = toDirectImageUrl(item.image);
+      modalImage.alt = item.title;
+      modalTitle.textContent = item.title;
+      modalCategory.textContent = item.category.toUpperCase();
+      modalDescription.textContent = item.description;
+      modalTags.innerHTML = item.tags.map(tag => `<span class="tag">${tag}</span>`).join("");
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModalFn() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      modalImage.src = "";
+    }
+
+    function renderGallery() {
+      const items = getVisibleItems();
+      resultCount.textContent = `${items.length} item${items.length === 1 ? "" : "s"} shown`;
+
+      if (!items.length) {
+        gallery.innerHTML = `
+          <div class="empty">
+            No items matched the current search or filter.
+          </div>
+        `;
+        return;
+      }
+
+      gallery.innerHTML = items.map((item, index) => {
+        const imageSrc = toDirectImageUrl(item.image);
+        return `
+          <article class="card" tabindex="0" data-index="${index}" aria-label="${item.title}">
+            <div class="card-media">
+              <img src="${imageSrc}" alt="${item.title}" loading="lazy" decoding="async">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">${item.title}</h3>
+              <p class="card-desc">${item.description}</p>
+              <div class="card-tags">
+                ${item.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
+              </div>
+              <div class="card-actions">
+                <button class="btn small" type="button" data-open="${item.title}">Preview</button>
+                <button class="btn small ghost" type="button" data-copy="${item.title}">Copy title</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      gallery.querySelectorAll("[data-open]").forEach(button => {
+        button.addEventListener("click", () => {
+          const title = button.getAttribute("data-open");
+          const item = portfolioItems.find(x => x.title === title);
+          if (item) openModal(item);
+        });
+      });
+
+      gallery.querySelectorAll("[data-copy]").forEach(button => {
+        button.addEventListener("click", async () => {
+          const title = button.getAttribute("data-copy");
+          try {
+            await navigator.clipboard.writeText(title);
+            button.textContent = "Copied";
+            setTimeout(() => button.textContent = "Copy title", 1200);
+          } catch {
+            button.textContent = "Copy blocked";
+            setTimeout(() => button.textContent = "Copy title", 1200);
+          }
+        });
+      });
+
+      gallery.querySelectorAll(".card").forEach(card => {
+        card.addEventListener("click", (event) => {
+          if (event.target.closest("button")) return;
+          const title = card.getAttribute("aria-label");
+          const item = portfolioItems.find(x => x.title === title);
+          if (item) openModal(item);
+        });
+
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            const title = card.getAttribute("aria-label");
+            const item = portfolioItems.find(x => x.title === title);
+            if (item) openModal(item);
+          }
+        });
+      });
+    }
+
+    searchInput.addEventListener("input", () => {
+      searchValue = normalizeText(searchInput.value);
+      renderGallery();
+    });
+
+    chips.addEventListener("click", (event) => {
+      const btn = event.target.closest(".chip");
+      if (!btn) return;
+
+      chips.querySelectorAll(".chip").forEach(chip => chip.classList.remove("active"));
+      btn.classList.add("active");
+      activeFilter = btn.dataset.filter;
+      renderGallery();
+    });
+
+    closeModal.addEventListener("click", closeModalFn);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModalFn();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && modal.classList.contains("open")) {
+        closeModalFn();
+      }
+    });
+
+    renderGallery();
+  </script>
 </body>
 </html>
